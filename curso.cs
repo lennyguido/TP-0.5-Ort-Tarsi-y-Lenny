@@ -20,7 +20,10 @@ public void buscarAlumnoxDni(){
      bool encontrado = false
      int i = 0;
      while(!encontrado && i<Alumno.count){
-        alumno[i].
+        if(alumno[i].getDni == dni)
+        {encontrado = true}
+        i++
+
      }
 }
 }

@@ -12,8 +12,8 @@ this.dni = dni;
 this.nombre = nombre;
 this.cantidadFaltas = cantidadFaltas;
 }
-public int getDni
+public int getDni()
 {
-    return dni;+
+    return dni;
 }
 }
