@@ -6,14 +6,21 @@ private int dni;
 private string nombre;
 private double cantidadFaltas;
 
-public Alumno(dni, nombre, cantidadFaltas)
+public Alumno(int dni, string nombre, double cantidadFaltas)
 {
 this.dni = dni;
 this.nombre = nombre;
 this.cantidadFaltas = cantidadFaltas;
 }
-public int getDni()
+public int GetDni()
 {
     return dni;
+}
+public double GetCantidadFaltas()
+{
+    return cantidadFaltas;
+}
+public string getNombre(){
+    return nombre;
 }
 }
