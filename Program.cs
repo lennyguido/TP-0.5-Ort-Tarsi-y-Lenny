@@ -6,6 +6,7 @@ class Program
     {
         int menu;
         Curso curso = new Curso();
+
         List<string> opciones = new List<string>()
         {
             "Agregar nuevos alumnos",
@@ -15,53 +16,61 @@ class Program
             "Mostrar los alumnos con mas de 15 faltas (Libres)",
         };
 
-
         menu = PedirOpcion(opciones, opciones.Count);
-
 
         while (menu != opciones.Count)
         {
-            accionar(opciones, menu);
+            accionar(curso, opciones, menu);
             menu = PedirOpcion(opciones, opciones.Count);
         }
     }
 
-
-    private static void accionar(List<string> opciones, int menu)
+    private static void accionar(Curso curso, List<string> opciones, int menu)
     {
-        
+        string resultado = "";
+        int faltas = 0;
         int dni = 0;
         string nombre = "";
         double cantidadFaltas = 0;
+
         switch (menu)
         {
             case 1:
-              dni = pedirInt("Ingrese el DNI del alumno sin espacios ni puntos: ");
-              nombre = pedirString("Ingrese el nombre del alumno: ");
-              cantidadFaltas = 0;
-              Curso.agregarAlumno(dni, nombre, cantidadFaltas);
+                dni = pedirInt("Ingrese el DNI del alumno sin espacios ni puntos: ");
+                nombre = pedirString("Ingrese el nombre del alumno: ");
+                cantidadFaltas = 0;
+                curso.agregarAlumno(dni, nombre, cantidadFaltas);
                 break;
 
             case 2:
-                
+                dni = pedirInt("Ingrese el DNI del alumno sin espacios ni puntos: ");
+                resultado = curso.buscarAlumnoxDni(dni);
+                Console.WriteLine(resultado);
                 break;
-
 
             case 3:
-               
+                dni = pedirInt("Ingrese el DNI del alumno sin espacios ni puntos: ");
+                faltas = pedirInt("1 falta [1] / 0.5 falta [otro número]: ");
+                curso.AgregarFaltas(dni, faltas);
                 break;
-
 
             case 4:
-              
+                List<string> alumnosNombre = curso.mostrarAlumnos();
+                for (int i = 0; i < alumnosNombre.Count; i++)
+                {
+                    Console.WriteLine(alumnosNombre[i]);
+                }
                 break;
-            
-            case 5:
 
-            break; 
+            case 5:
+                List<string> alumnosLibreNombre = curso.mostrarLibres();
+                for (int i = 0; i < alumnosLibreNombre.Count; i++)
+                {
+                    Console.WriteLine(alumnosLibreNombre[i]);
+                }
+                break;
         }
     }
-
 
     private static int PedirOpcion(List<string> opciones, int cantidadOpciones)
     {
@@ -69,25 +78,27 @@ class Program
         do
         {
             Console.WriteLine("Ingrese la opcion del menú que desee: ");
-            int i = 0;
-            while (i < opciones.Count)
+            for (int i = 0; i < opciones.Count; i++)
             {
                 Console.WriteLine((i + 1) + ". " + opciones[i]);
-                i++;
             }
-            x = int.Parse(Console.ReadLine());
+
+            x = int.Parse(Console.ReadLine() ?? "0");
+
         } while (x < 1 || x > cantidadOpciones);
+
         return x;
     }
-    private int pedirInt(string xe){
+
+    private static int pedirInt(string xe)
+    {
         Console.WriteLine(xe);
-        int x = int.Parse(Console.ReadLine());
-        return x;
+        return int.Parse(Console.ReadLine() ?? "0");
     }
-    private string pedirString(string xe){
+
+    private static string pedirString(string xe)
+    {
         Console.WriteLine(xe);
-        string x = Console.ReadLine();
-        return x;
+        return Console.ReadLine() ?? "";
     }
 }
-
