@@ -14,6 +14,7 @@ class Program
             "Agregar una falta o media falta a un alumno.",
             "Mostrar todos los alumnos",
             "Mostrar los alumnos con mas de 15 faltas (Libres)",
+            "Salir"
         };
 
         menu = PedirOpcion(opciones, opciones.Count);
