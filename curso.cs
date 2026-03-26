@@ -2,11 +2,11 @@ namespace TP0._5
 {
     public class Curso
     {
-        private List<Alumno> alumnos;
+        Dictionary<int, Alumno> dicAlumnos;
 
         public Curso()
         {
-            alumnos = new List<Alumno>();
+            dicAlumnos = new Dictionary<int, Alumno>();
         }
 
         public void agregarAlumno(int dni, string nombre, double cantidadFaltas)
@@ -16,7 +16,7 @@ namespace TP0._5
             if (resultado == "No se ha encontrado.")
             {
                 Alumno a = new Alumno(dni, nombre, cantidadFaltas);
-                alumnos.Add(a);
+                dicAlumnos.Add(dni, a);
             }
             else
             {
@@ -26,59 +26,61 @@ namespace TP0._5
 
         public string buscarAlumnoxDni(int dni)
         {
-            for (int i = 0; i < alumnos.Count; i++)
-            {
-                if (alumnos[i].GetDni() == dni)
-                {
-                    return "Se ha encontrado, el alumno es: " + alumnos[i].getNombre();
-                }
-            }
+           if(dicAlumnos.ContainsKey(dni)){
+                return "Se ha encontrado, el alumno es: " +dicAlumnos[dni].getNombre();                                     
 
-            return "No se ha encontrado.";
+           }
+           return "No se ha encontrado.";
+                             
         }
 
-        public void AgregarFaltas(int dni, int faltas)
+            
+        
+
+        public string AgregarFaltas(int dni, int faltas)
         {
-            for (int i = 0; i < alumnos.Count; i++)
-            {
-                if (alumnos[i].GetDni() == dni)
-                {
-                    if (faltas == 1)
-                        alumnos[i].SumarFaltas(1);
-                    else
-                        alumnos[i].SumarFaltas(0.5);
-
-                    return;
+          if(dicAlumnos.ContainsKey(dni)){
+              if (faltas == 1){
+                  dicAlumnos[dni].SumarFaltas(1);
+                  return "se a sumado una falta";
                 }
+                    else
+                    {
+                  dicAlumnos[dni].SumarFaltas(0.5);
+                  return "se a sumado media falta";
+                    }                          
+               
+                }
+                 return "no existe un alumno con ese dni";
             }
 
-            Console.WriteLine("Alumno no encontrado.");
-        }
+          
+        
 
         public List<string> mostrarAlumnos()
         {
+            
+           
+       
+
             List<string> lista = new List<string>();
 
-            for (int i = 0; i < alumnos.Count; i++)
+            foreach (int clave in dicAlumnos.Keys)
             {
-                lista.Add(alumnos[i].getNombre());
+                lista.Add(dicAlumnos[clave].getNombre());
             }
-
             return lista;
         }
 
         public List<string> mostrarLibres()
         {
             List<string> lista = new List<string>();
-
-            for (int i = 0; i < alumnos.Count; i++)
+              foreach (int clave in dicAlumnos.Keys)
             {
-                if (alumnos[i].GetCantidadFaltas() > 15)
-                {
-                    lista.Add(alumnos[i].getNombre());
-                }
+               if (dicAlumnos[clave].GetCantidadFaltas() > 15){
+                lista.Add(dicAlumnos[clave].getNombre());
+               }
             }
-
             return lista;
         }
     }

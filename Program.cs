@@ -50,9 +50,11 @@ class Program
                 break;
 
             case 3:
+            string mensaje;
                 dni = pedirInt("Ingrese el DNI del alumno sin espacios ni puntos: ");
                 faltas = pedirInt("1 falta [1] / 0.5 falta [otro número]: ");
-                curso.AgregarFaltas(dni, faltas);
+                mensaje = curso.AgregarFaltas(dni, faltas);
+                Console.WriteLine(mensaje);
                 break;
 
             case 4:
